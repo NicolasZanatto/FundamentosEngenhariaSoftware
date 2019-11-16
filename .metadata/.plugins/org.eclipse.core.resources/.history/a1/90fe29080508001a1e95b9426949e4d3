@@ -1,0 +1,42 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.JTable;
+
+public class AvisoView extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Create the frame.
+	 */
+	public AvisoView() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 677, 506);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Mural de Avisos");
+		lblNewLabel_1.setFont(new Font("Courier New", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(244, 11, 157, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		table = new JTable();
+		table.setFillsViewportHeight(true);
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setBounds(24, 50, 616, 345);
+		contentPane.add(table);
+	}
+}

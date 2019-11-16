@@ -1,0 +1,21 @@
+package main;
+
+import dao.AvisoDAO;
+import model.Aviso;
+import view.AvisoView;
+
+public class Run {
+
+	public static void main(String[] args) {
+		AvisoDAO dao = new AvisoDAO();
+		
+		Aviso aviso = new Aviso();
+		aviso.setIdaviso(2);
+		aviso.setMensagem("ffffff");
+		
+		dao.excluir(2);
+		
+		//new AvisoView().setVisible(true);
+	}
+
+}

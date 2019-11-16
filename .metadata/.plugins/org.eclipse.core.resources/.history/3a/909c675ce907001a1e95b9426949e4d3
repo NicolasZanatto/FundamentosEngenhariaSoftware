@@ -1,0 +1,46 @@
+package dao;
+
+import java.sql.Connection;
+import model.Aviso;
+import java.sql.PreparedStatement;
+
+public class AvisoDAO {
+	
+	private Connection conn;
+	private PreparedStatement stmt;
+	
+	public AvisoDAO() {
+		conn = new ConnectionFactory().getConexao();
+	}
+	
+	public void inserir(Aviso aviso) {
+		String sql = "INSERT INTO aviso(idaviso,mensagem) VALUES (?,?)";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, aviso.getIdaviso());
+			stmt.setString(2, aviso.getMensagem());
+			stmt.execute();
+			stmt.close();
+		}catch(Exception erro) {
+			throw new RuntimeException(erro);
+		}
+	}
+	
+	public void atualizar() {
+		String sql = "";
+		try {
+			
+		}catch(Exception erro) {
+			throw new RuntimeException(erro);
+		}
+	}
+	
+	public void excluir() {
+		String sql = "";
+		try {
+			
+		}catch(Exception erro) {
+			throw new RuntimeException(erro);
+		}
+	}
+}
