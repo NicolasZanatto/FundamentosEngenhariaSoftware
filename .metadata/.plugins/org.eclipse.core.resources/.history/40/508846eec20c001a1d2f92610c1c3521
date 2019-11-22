@@ -1,0 +1,18 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class DisciplinaDAO {
+	private Connection conn;
+	private PreparedStatement stmt;
+	private Statement st;
+	private ResultSet rs;
+	
+	
+	public DisciplinaDAO() {
+		conn = new ConnectionFactory().getConexao();
+	}
+}

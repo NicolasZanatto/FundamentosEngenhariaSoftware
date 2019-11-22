@@ -1,0 +1,62 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import model.Disciplina;;
+
+public class DisciplinaDAO {
+	private Connection conn;
+	private PreparedStatement stmt;
+	private Statement st;
+	private ResultSet rs;
+	
+	
+	public DisciplinaDAO() {
+		conn = new ConnectionFactory().getConexao();
+	}
+	
+	public ArrayList<Disciplina> listarTodos(){
+		String sql = "SELECT * FROM aviso";
+		ArrayList<Disciplina> lista = new ArrayList<Disciplina>();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				Disciplina disciplina = new Disciplina();
+				disciplina.setIddisciplina(rs.getInt("iddisciplina"));
+				disciplina.setNome(rs.getString("nome"));
+				disciplina.setIdprofessor(rs.getInt("idprofessor"));
+				lista.add(disciplina);
+			}
+				
+		}catch(Exception erro) {
+			throw new RuntimeException("Erro 5: " + erro);
+		}
+		
+		return lista;
+	}
+	
+	public ArrayList<Aviso> listarTodosPorMensagem(String valor){
+		String sql = "SELECT * FROM aviso WHERE mensagem LIKE '%" + valor + "%' ";
+		ArrayList<Aviso> lista = new ArrayList<Aviso>();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				Aviso aviso = new Aviso();
+				aviso.setIdaviso(rs.getInt("idaviso"));
+				aviso.setMensagem(rs.getString("mensagem"));
+				lista.add(aviso);
+			}
+				
+		}catch(Exception erro) {
+			throw new RuntimeException("Erro 6: " + erro);
+		}
+		
+		return lista;
+	}
+}

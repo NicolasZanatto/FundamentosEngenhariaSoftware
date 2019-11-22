@@ -1,0 +1,30 @@
+package main;
+
+import dao.AlunoDAO;
+import dao.AvisoDAO;
+import dao.NotaDAO;
+import model.Aluno;
+import model.Aviso;
+import model.Nota;
+import view.AvisoView;
+
+public class Run {
+
+	public static void main(String[] args) {
+		new AvisoView().setVisible(true);
+		
+		AlunoDAO dao = new AlunoDAO();
+		Aluno aluno = dao.buscarPorId(1);
+		
+		System.out.println(aluno.getMatricula());
+		
+		/*Nota nota = new Nota();
+		NotaDAO notaDAO = new NotaDAO();
+		nota.setIdnota(1);
+		nota.setIdaluno(2);
+		nota.setIddisciplina(2);
+		nota.setNota(9);
+		notaDAO.atualizar(nota);*/
+	}
+
+}
