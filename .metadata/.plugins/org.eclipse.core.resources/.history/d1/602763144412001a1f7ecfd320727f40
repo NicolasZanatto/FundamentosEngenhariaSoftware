@@ -1,0 +1,17 @@
+package main;
+
+import java.util.ArrayList;
+
+import dao.AlunoDAO;
+import model.Aluno;
+import view.LoginView;
+
+public class Run {
+
+	public static void main(String[] args) {
+		ArrayList<Aluno> alunos = new AlunoDAO().listarTodos();
+		System.out.println("1");
+		//new LoginView().frame.setVisible(true);
+	}
+
+}

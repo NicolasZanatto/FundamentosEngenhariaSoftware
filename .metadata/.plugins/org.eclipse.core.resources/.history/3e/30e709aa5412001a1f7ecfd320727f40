@@ -1,0 +1,53 @@
+package util;
+
+import model.Aviso;
+import model.Nota;
+
+import java.util.ArrayList;
+
+import javax.swing.table.AbstractTableModel;
+
+public class NotaTableModel extends AbstractTableModel {
+
+	public static final int COL_IDNOTA = 0;
+	public static final int COL_ALUNO = 1;
+	public static final int COL_DISCIPLINA = 2;
+	public static final int COL_NOTA = 3;
+	public ArrayList<Nota> lista;
+	
+	public NotaTableModel(ArrayList<Nota> notas) {
+		lista = new ArrayList<Nota>(notas);
+	}
+	
+	@Override
+	public int getColumnCount() {
+		return 4;
+	}
+
+	@Override
+	public int getRowCount() {
+		return lista.size();
+	}
+
+	@Override
+	public Object getValueAt(int linha, int coluna) {
+		Nota nota = lista.get(linha);
+		if(coluna == COL_IDNOTA) 
+			return nota.getIdaluno();
+	//	if(coluna == COL_MENSAGEM)
+		//	return aviso.getMensagem();
+		
+		return "";
+	}
+	
+	@Override
+	public String getColumnName(int coluna) {
+		if(coluna == COL_IDAVISO) 
+			return "Id";
+		if(coluna == COL_MENSAGEM)
+			return "Mensagem";
+		
+		return "";
+	}
+
+}

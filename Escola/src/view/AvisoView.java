@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import dao.AvisoDAO;
-import table.AvisoTableModel;
+import model.Pessoa;
+import util.AvisoTableModel;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -31,15 +32,22 @@ public class AvisoView extends JFrame {
 	private JTable tbAvisos;
 	private JScrollPane scrollPane;
 	private JButton btnRefresh;
+	private JButton btnCriar;
+	private JButton btnExcluir;
 	private JTextField txbIdSelecionado;
 	private AvisoDAO dao;
+	
+	private Pessoa usuarioLogado;
 
 	/**
 	 * Create the frame.
 	 */
-	public AvisoView() {
+	public AvisoView(Pessoa usuarioLogado) {
 		initComponents();
+		setVisible(true);
+		this.usuarioLogado = usuarioLogado;
 		buscarAvisos();
+		permissoes();
 	}
 	
 	public void initComponents() {
@@ -69,7 +77,7 @@ public class AvisoView extends JFrame {
 		});
 		scrollPane.setViewportView(tbAvisos);
 		
-		JButton btnCriar = new JButton("Criar");
+		btnCriar = new JButton("Criar");
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new CadastroAvisoView().setVisible(true);
@@ -79,7 +87,7 @@ public class AvisoView extends JFrame {
 		btnCriar.setBounds(547, 421, 95, 23);
 		contentPane.add(btnCriar);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int escolha = JOptionPane.showConfirmDialog(null,"Deseja excluir?","Aviso - Exclusão", JOptionPane.YES_NO_OPTION);
@@ -114,6 +122,14 @@ public class AvisoView extends JFrame {
 	public void buscarAvisos() {
 		tbAvisos.setModel(new AvisoTableModel(new AvisoDAO().listarTodos()));
 		tbAvisos.getColumnModel().getColumn(0).setPreferredWidth(15);
+	}
+	
+	public void permissoes() {
+		if(usuarioLogado.ehAluno() || usuarioLogado.ehResponsavel())
+		{
+			btnExcluir.setVisible(false);
+			btnCriar.setVisible(false);
+		}
 	}
 	
 }

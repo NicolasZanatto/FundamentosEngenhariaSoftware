@@ -1,0 +1,63 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import model.Pessoa;
+
+public class PessoaDAO {
+	private Connection conn;
+	private Statement st;
+	private ResultSet rs;
+	
+	public PessoaDAO() {
+		conn = new ConnectionFactory().getConexao();
+	}
+	
+	
+	public Pessoa buscarParaLogar(String cpf, String senha){
+		String sql = "SELECT * FROM pessoa WHERE cpf = " + "'"+ cpf + "'" + " and senha = " + "'"+ senha + "'";
+		ArrayList<Pessoa> lista = new ArrayList<Pessoa>();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				Pessoa pessoa = new Pessoa();
+				pessoa.setIdpessoa(rs.getInt("idpessoa"));
+				pessoa.setCpf(rs.getString("cpf"));
+				pessoa.setNome(rs.getString("nome"));
+				pessoa.setTipousuario(rs.getInt("tipousuario"));
+				lista.add(pessoa);
+			}
+				
+		}catch(Exception erro) {
+			throw new RuntimeException("Erro 6: " + erro);
+		}
+		
+		return lista.size() > 0 ? lista.get(0) : null;
+	}
+	
+	public Pessoa buscarPorIdAluno(int idaluno){
+		String sql = "SELECT * FROM pessoa WHERE idaluno = " + idaluno;
+		ArrayList<Pessoa> lista = new ArrayList<Pessoa>();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				Pessoa pessoa = new Pessoa();
+				pessoa.setIdpessoa(rs.getInt("idpessoa"));
+				pessoa.setCpf(rs.getString("cpf"));
+				pessoa.setNome(rs.getString("nome"));
+				pessoa.setTipousuario(rs.getInt("tipousuario"));
+				lista.add(pessoa);
+			}
+				
+		}catch(Exception erro) {
+			throw new RuntimeException("Erro 6: " + erro);
+		}
+		
+		return lista.size() > 0 ? lista.get(0) : null;
+	}
+}

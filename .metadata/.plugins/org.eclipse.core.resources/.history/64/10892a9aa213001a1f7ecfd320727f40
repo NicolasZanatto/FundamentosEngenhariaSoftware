@@ -1,0 +1,272 @@
+package view;
+
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import dao.AlunoDAO;
+import dao.AvisoDAO;
+import dao.DisciplinaDAO;
+import dao.NotaDAO;
+import model.Aluno;
+import model.Disciplina;
+import model.Nota;
+import util.AvisoTableModel;
+import util.ComboboxItem;
+import util.NotaTableModel;
+
+import javax.swing.border.LineBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
+import javax.swing.JTabbedPane;
+
+public class RegistroNotasView {
+
+	public JFrame frmRegistroDeNotas;
+	private JTextField txbNota;
+	private JTable tbNotas;
+	private JScrollPane scrollPane;
+	private JTextField txbDescricao;
+	private JTextField txbIdSelecionado;
+	private NotaDAO dao;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					RegistroNotasView window = new RegistroNotasView();
+					window.frmRegistroDeNotas.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public RegistroNotasView() {
+		initialize();
+		buscarNotas();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		dao = new NotaDAO();
+		frmRegistroDeNotas = new JFrame();
+		frmRegistroDeNotas.setTitle("REGISTRO DE NOTAS- EDI\u00C7\u00C3O");
+		frmRegistroDeNotas.setResizable(false);
+		frmRegistroDeNotas.setBounds(100, 100, 539, 335);
+		frmRegistroDeNotas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRegistroDeNotas.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(28, 29, 84, 101);
+		frmRegistroDeNotas.getContentPane().add(panel);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(28, 187, 479, 108);
+		frmRegistroDeNotas.getContentPane().add(scrollPane);
+		
+		tbNotas = new JTable();
+		tbNotas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				txbIdSelecionado.setText(tbNotas.getValueAt(tbNotas.getSelectedRow(), AvisoTableModel.COL_IDAVISO).toString());
+			}
+		});
+		scrollPane.setViewportView(tbNotas);
+		
+		JLabel lblAluno = new JLabel("ALUNO:");
+		lblAluno.setBounds(141, 31, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblAluno);
+		
+		JLabel lblDisciplina = new JLabel("DISCIPLINA:");
+		lblDisciplina.setBounds(141, 66, 70, 14);
+		frmRegistroDeNotas.getContentPane().add(lblDisciplina);
+		
+		JLabel lblNota = new JLabel("NOTA:");
+		lblNota.setBounds(141, 124, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblNota);
+		
+		JComboBox<ComboboxItem> cmbDisciplina = new JComboBox<ComboboxItem>();
+		cmbDisciplina.setEditable(true);
+		cmbDisciplina.setBounds(223, 63, 136, 20);
+		this.alimentarComboDisciplinas(cmbDisciplina);
+		frmRegistroDeNotas.getContentPane().add(cmbDisciplina);
+		
+		txbNota = new JTextField();
+		txbNota.setBounds(223, 121, 136, 20);
+		frmRegistroDeNotas.getContentPane().add(txbNota);
+		txbNota.setColumns(10);
+		
+		JButton btnInserirNota = new JButton("INSERIR");
+		
+		btnInserirNota.setBounds(68, 153, 105, 23);
+		frmRegistroDeNotas.getContentPane().add(btnInserirNota);
+		
+		JButton btnAtualizarNota = new JButton("ATUALIZAR");
+		btnAtualizarNota.setBounds(183, 153, 105, 23);
+		frmRegistroDeNotas.getContentPane().add(btnAtualizarNota);
+		
+		JButton btnExcluir = new JButton("EXCLUIR");
+		btnExcluir.setBounds(298, 153, 90, 23);
+		frmRegistroDeNotas.getContentPane().add(btnExcluir);
+		
+		JLabel lblAluno_1 = new JLabel("   Aluno");
+		lblAluno_1.setBounds(78, 187, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblAluno_1);
+		
+		JLabel lblDisciplina_1 = new JLabel("   Disciplina");
+		lblDisciplina_1.setBounds(155, 187, 72, 14);
+		frmRegistroDeNotas.getContentPane().add(lblDisciplina_1);
+		
+		JLabel lblNota_1 = new JLabel("   Nota");
+		lblNota_1.setBounds(237, 187, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblNota_1);
+		
+		JLabel lblData = new JLabel("   Data");
+		lblData.setBounds(325, 187, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblData);
+		
+		JComboBox<ComboboxItem> cmbAluno = new JComboBox<ComboboxItem>();
+		cmbAluno.setEditable(true);
+		cmbAluno.setBounds(223, 29, 136, 20);
+		this.alimentarComboAlunos(cmbAluno);
+		
+		
+		
+		frmRegistroDeNotas.getContentPane().add(cmbAluno);
+		
+		JLabel lblDescrio = new JLabel("DESCRI\u00C7\u00C3O:");
+		lblDescrio.setBounds(141, 99, 70, 14);
+		frmRegistroDeNotas.getContentPane().add(lblDescrio);
+		
+		txbDescricao = new JTextField();
+		txbDescricao.setColumns(10);
+		txbDescricao.setBounds(223, 90, 136, 20);
+		frmRegistroDeNotas.getContentPane().add(txbDescricao);
+		
+		txbIdSelecionado = new JTextField();
+		txbIdSelecionado.setColumns(10);
+		txbIdSelecionado.setBounds(387, 63, 136, 20);
+		txbIdSelecionado.setVisible(false);
+		frmRegistroDeNotas.getContentPane().add(txbIdSelecionado);
+		
+		btnInserirNota.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ComboboxItem cmbA = (ComboboxItem) cmbAluno.getSelectedItem();
+				ComboboxItem cmbD = (ComboboxItem) cmbDisciplina.getSelectedItem();
+				if(Validacoes(cmbA, cmbD)) {
+					NotaDAO notadao = new NotaDAO();
+					Nota nota = new Nota();
+					
+					
+					
+					nota.setIdaluno(cmbA.getValue());
+					nota.setIddisciplina(cmbD.getValue());
+					nota.setNota(Float.parseFloat(txbNota.getText()));
+					nota.setDescricao(txbDescricao.getText());
+					notadao.inserir(nota);
+				}
+			}
+		});
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int escolha = JOptionPane.showConfirmDialog(null,"Deseja excluir?","Aviso - Exclusão", JOptionPane.YES_NO_OPTION);
+				if(escolha == 0) {
+					dao.excluir(Integer.parseInt(txbIdSelecionado.getText()));
+					System.out.println("Id: " + Integer.parseInt(txbIdSelecionado.getText()));
+					buscarNotas();
+				}
+			}
+		});
+		
+		btnAtualizarNota.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Nota nota = new Nota();
+				nota.setIdnota(Integer.parseInt(txbIdSelecionado.getText()));
+				
+				dao.atualizar(nota);
+				buscarNotas();
+			}
+		});
+	}
+	
+	public void buscarNotas() {
+		tbNotas.setModel(new NotaTableModel(new NotaDAO().listarTodos()));
+		tbNotas.getColumnModel().getColumn(0).setPreferredWidth(15);
+	}
+	
+	
+	private void alimentarComboAlunos(JComboBox<ComboboxItem> cmbAluno) {
+		
+		ArrayList<Aluno> alunos = new AlunoDAO().listarTodos();
+		for(Aluno aluno : alunos) {
+			cmbAluno.addItem(new ComboboxItem(aluno.getIdaluno(), aluno.getPessoa().getNome()));
+		}
+		
+	}
+	
+	private void alimentarComboDisciplinas(JComboBox<ComboboxItem> cmbDisciplina) {
+		
+		ArrayList<Disciplina> disciplinas = new DisciplinaDAO().listarTodos();
+		for(Disciplina disciplina : disciplinas) {
+			cmbDisciplina.addItem(new ComboboxItem(disciplina.getIddisciplina(), disciplina.getNome()));
+		}
+		
+	}
+	
+	public boolean Validacoes(ComboboxItem cmbA, ComboboxItem cmbD) {
+
+		if(!isParsable(txbNota.getText()) || Integer.parseInt(txbNota.getText()) >10 || Integer.parseInt(txbNota.getText()) <0) {
+			JOptionPane.showMessageDialog(null, "Valor Inválido");
+			return false;
+		}
+		/*ArrayList<Nota> notas = new NotaDAO().buscarPorIdAlunoIdDisciplina(cmbA.getValue(), cmbD.getValue());
+		for(Nota nota : notas) {
+			if(nota.getDescricao() !=null && nota.getDescricao().trim().toUpperCase() == txbDescricao.getText().trim().toUpperCase()) {
+				JOptionPane.showMessageDialog(null, "Nota já foi inserida");
+				return false;
+			}
+		}*/
+		
+		return true;
+	}
+	
+	public boolean isParsable(String input){
+	    try{
+	        Integer.parseInt(input);
+	        return true;
+	    }catch(Exception e){
+	        return false;
+	    }
+	}
+}

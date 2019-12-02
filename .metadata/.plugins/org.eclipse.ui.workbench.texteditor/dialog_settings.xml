@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="setModel"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="setModel"/>
+			<item value="nota"/>
+			<item value="idpresen"/>
+			<item value="idnota"/>
+			<item value="notas"/>
+			<item value="faltas"/>
+			<item value="cmbDisciplina"/>
+			<item value="tbNotas"/>
+			<item value="scrollPane"/>
+			<item value="alimentarComboDisciplinas"/>
+			<item value="frmRegistroDeNotas"/>
+			<item value="usuarioLogado"/>
+			<item value="inserir"/>
+			<item value="ComboboxItem"/>
 			<item value="buscarAvisos"/>
-			<item value="listarTodos"/>
-			<item value="montarLayoutTabela"/>
-			<item value="txbIdSelecionado"/>
-			<item value="listarTo"/>
-			<item value="listarto"/>
-			<item value="dao"/>
-			<item value="initComponents"/>
-			<item value="COL_IDAVISO"/>
+			<item value="excluir"/>
 		</list>
 		<list key="replacehistory">
+			<item value="idpresenca"/>
+			<item value="presenca"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="549"/>
-		<item key="DIALOG_Y_ORIGIN" value="112"/>
+		<item key="DIALOG_X_ORIGIN" value="974"/>
+		<item key="DIALOG_Y_ORIGIN" value="308"/>
 		<item key="DIALOG_WIDTH" value="284"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>

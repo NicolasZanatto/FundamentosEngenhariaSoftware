@@ -1,0 +1,123 @@
+package view;
+
+import java.awt.EventQueue;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import dao.DisciplinaDAO;
+import model.Disciplina;
+import model.Pessoa;
+import util.ComboboxItem;
+
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+
+public class VisualizacaoNotasView {
+
+	private JFrame frmRegistroDeNotas;
+	private JTable table;
+	private JTextField txbAluno;
+	private Pessoa usuarioLogado;
+
+	/**
+	 * Create the application.
+	 */
+	public VisualizacaoNotasView(Pessoa usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+		initialize();
+		
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmRegistroDeNotas = new JFrame();
+		frmRegistroDeNotas.getContentPane().setBackground(Color.BLUE);
+		frmRegistroDeNotas.setBackground(Color.BLUE);
+		frmRegistroDeNotas.setTitle("REGISTRO DE NOTAS- VISUALIZA\u00C7\u00C3O");
+		frmRegistroDeNotas.setBounds(100, 100, 450, 300);
+		frmRegistroDeNotas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRegistroDeNotas.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(29, 29, 91, 98);
+		frmRegistroDeNotas.getContentPane().add(panel);
+		
+		JLabel lblAluno = new JLabel("ALUNO:");
+		lblAluno.setBounds(150, 47, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblAluno);
+		
+		JLabel lblDisciplina = new JLabel("DISCIPLINA:");
+		lblDisciplina.setBounds(150, 85, 73, 14);
+		frmRegistroDeNotas.getContentPane().add(lblDisciplina);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column"
+			}
+		));
+		table.setSurrendersFocusOnKeystroke(true);
+		table.setFillsViewportHeight(true);
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		table.setBounds(48, 159, 327, 78);
+		frmRegistroDeNotas.getContentPane().add(table);
+		
+		JLabel lblNota = new JLabel("Nota");
+		lblNota.setBounds(74, 138, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblNota);
+		
+		JLabel lblDisciplina_1 = new JLabel("Disciplina");
+		lblDisciplina_1.setBounds(195, 134, 73, 14);
+		frmRegistroDeNotas.getContentPane().add(lblDisciplina_1);
+		
+		JLabel lblData = new JLabel("Data");
+		lblData.setBounds(299, 134, 46, 14);
+		frmRegistroDeNotas.getContentPane().add(lblData);
+		
+		txbAluno = new JTextField();
+		txbAluno.setBounds(228, 44, 117, 20);
+		frmRegistroDeNotas.getContentPane().add(txbAluno);
+		txbAluno.setColumns(10);
+		txbAluno.setText(usuarioLogado.getNome());
+		JComboBox cmbDisciplinas = new JComboBox();
+		cmbDisciplinas.setToolTipText("");
+		cmbDisciplinas.setEditable(true);
+		cmbDisciplinas.setBounds(228, 82, 117, 20);
+		frmRegistroDeNotas.getContentPane().add(cmbDisciplinas);
+		
+		//alimentarComboDisciplinas()
+		
+		frmRegistroDeNotas.setVisible(cmbDisciplinas);
+	}
+	
+	private void alimentarComboDisciplinas(JComboBox<ComboboxItem> cmbDisciplina) {
+		
+		ArrayList<Disciplina> disciplinas = new DisciplinaDAO().listarTodos();
+		for(Disciplina disciplina : disciplinas) {
+			cmbDisciplina.addItem(new ComboboxItem(disciplina.getIddisciplina(), disciplina.getNome()));
+		}
+		
+	}
+	
+	
+}

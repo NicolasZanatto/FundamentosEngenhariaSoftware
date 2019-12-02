@@ -3,6 +3,7 @@ package model;
 public class Aluno {
 	private int idaluno;
 	private int idpessoa;
+	private Pessoa pessoa;
 	private String matricula;
 	public int getIdaluno() {
 		return idaluno;
@@ -21,6 +22,12 @@ public class Aluno {
 	}
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	
 }

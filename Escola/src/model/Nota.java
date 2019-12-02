@@ -5,6 +5,16 @@ public class Nota {
 	private int idaluno;
 	private int iddisciplina;
 	private float nota;
+	private String descricao;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	private Aluno aluno;
+	private Disciplina disciplina;
 	
 	public int getIdnota() {
 		return idnota;
@@ -26,6 +36,18 @@ public class Nota {
 	}
 	public float getNota() {
 		return nota;
+	}
+	public Aluno getAluno() {
+		return aluno;
+	}
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 	public void setNota(float nota) {
 		this.nota = nota;
